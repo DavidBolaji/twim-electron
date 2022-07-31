@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const contentController = require("../controllers/contentController");
+const catchAsyncError = require("../utils/error");
+const upload = require("../utils/multar");
+const contentRouter = (0, express_1.Router)();
+contentRouter.post('/content/:courseId', upload.single("videos"), contentController.create, catchAsyncError);
+contentRouter.get('/content/:courseId', contentController.getAll);
+contentRouter.get('/content/:courseId/:id', contentController.getOne);
+contentRouter.put('/content/:courseId/:id', upload.single("videos"), contentController.updateOne, catchAsyncError);
+contentRouter.delete('/content/:courseId/:id', contentController.deleteOne);
+exports.default = contentRouter;
